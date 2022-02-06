@@ -1,0 +1,34 @@
+library(tidyverse)
+library(nflfastR)
+library(ggimage)
+library(gt)
+library(ggrepel)
+
+JW_1 <- load_pbp(2021:2021) %>%
+  filter(receiver_player_name == "J.Waddle" & !is.na(air_yards) & !is.na(epa) & complete_pass == 1) %>%
+  select(air_yards, yards_after_catch, season) %>%
+  view()
+
+JW_graph <- ggplot(data = JW_1) +
+  geom_point(mapping = aes(x = air_yards, y = yards_after_catch, colour = season), size = 4) +
+  labs(title = 'Waddle Air Yards and YAC 2021'
+       ,x = 'Air Yards'
+       ,y = 'YAC'
+       ,subtitle = str_c('By Domi | Code from Alex'))
+
+JW_graph
+
+
+JC_1 <- load_pbp(2021:2021) %>%
+  filter(receiver_player_name == "J.Chase" & !is.na(air_yards) & !is.na(epa) & complete_pass == 1) %>%
+  select(air_yards, yards_after_catch, season) %>%
+  view()
+
+JC_graph <- ggplot(data = JC_1) +
+  geom_point(mapping = aes(x = air_yards, y = yards_after_catch, colour = season), size = 4) +
+  labs(title = 'Chase Air Yards and YAC 2021'
+       ,x = 'Air Yards'
+       ,y = 'YAC'
+       ,subtitle = str_c('By Domi | Code from Alex'))
+
+JC_graph
