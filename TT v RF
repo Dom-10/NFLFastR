@@ -1,0 +1,33 @@
+library(tidyverse)
+library(nflfastR)
+library(ggimage)
+library(gt)
+library(ggrepel)
+
+TT_1 <- load_pbp(2020:2021) %>%
+  filter(passer_player_name == "T.Tagovailoa" & air_yards >= 20 & !is.na(air_yards) & !is.na(epa)) %>%
+  select(air_yards, epa, season) %>%
+  view()
+
+TT_graph <- ggplot(data = TT_1) +
+  geom_point(mapping = aes(x = air_yards, y = epa, colour = season), size = 5) +
+  labs(title = 'Tua EPA and Intended Air Yards 2020 - 2021'
+       ,x = 'Intended Air Yards'
+       ,y = 'EPA'
+       ,subtitle = str_c('By Domi | Code from Alex'))
+
+TT_graph
+
+RF_1 <- load_pbp(2019:2020) %>%
+  filter(passer_player_name == "R.Fitzpatrick" & air_yards >= 20 & !is.na(air_yards) & !is.na(epa)) %>%
+  select(air_yards, epa, season) %>%
+  view()
+
+RF_graph <- ggplot(data = RF_1) +
+  geom_point(mapping = aes(x = air_yards, y = epa, colour = season), size = 5) +
+  labs(title = 'Fitz EPA and Intended Air Yards 2019 - 2020'
+       ,x = 'Intended Air Yards'
+       ,y = 'EPA'
+       ,subtitle = str_c('By Domi | Code from Alex'))
+
+RF_graph
